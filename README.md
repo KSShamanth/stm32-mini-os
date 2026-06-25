@@ -1,4 +1,4 @@
-STM32 Mini OS
+# STM32 Mini OS
 
 > OVERVIEW:
 
@@ -178,16 +178,3 @@ The submission includes:
 - UART command traffic is assumed to be low enough that the fixed-size queue does not overflow during normal operation.
 - The demo application is intended to demonstrate OS behavior and kernel primitives rather than provide production-grade fault tolerance.
 - UART_Task holds the CPU while printing — HAL_UART_Transmit is blocking. During long outputs, LED_Task wakeup deadlines accumulate and it fires several times in quick succession when control returns to the scheduler. This is expected behavior in a cooperative single-stack design.
-
-> AI USAGE AND VALIDATION
-
-Claude AI was mainly used and that exported chats are included in the zip file.
-
-Validation methods included:
-
-- Reference checks: Peripheral configuration were cross-checked against STM32 HAL/CMSIS documentation,STM32G0 reference material and Nucleo board schematics.
-- Compilation Verification : The project was repeatedly built in STM32CubeIDE after each major implementation step. Compiler errors and warnings were resolved before proceeding with further development.
-- Scheduler and Task Validation : Scheduler behavior was verified through UART logs and the TASKS command. Task state transitions between READY, RUNNING, SLEEPING, and BLOCKED were observed and confirmed during execution.
-- Tick Timing Validation : The SysTick-based 1 ms timebase was validated using the periodic heartbeat task. The timing of heartbeat messages and task delays confirmed correct operation of os_sleep_ms() and task wakeup logic.
-- Semaphore Validation : External button interrupts were used to signal the binary semaphore. Successful wakeup of the Sensor Task confirmed correct interrupt-to-task synchronization behavior.
-- Message Queue Validation : UART commands and sensor event messages were transmitted through the message queue. Correct enqueue, dequeue, task blocking, and task wakeup behavior were verified through serial terminal output.
