@@ -2,7 +2,7 @@
 
 > OVERVIEW:
 
-This project implements a lightweight cooperative operating system for STM32 as part of the Bytebeam STM32 Mini OS Assignment.
+This project implements a lightweight cooperative operating system for STM32.
 
 The OS provides:
 
