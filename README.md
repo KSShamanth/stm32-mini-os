@@ -103,25 +103,20 @@ os_mq_send() returns OS_MQ_FULL if the queue has 8 messages already buffered and
 
 > PUBLIC APIs
 
-| Module      | Function                                  | Purpose |
-| **os_core** | `os_init()`                               | Reset task table and scheduler state before task creation. |
-| **os_core** | `os_task_create(name, fn, initial_state)` | Register a task and return its `os_tcb_t*`. Returns `NULL` if the task table is full. |
-| **os_core** | `os_start()`                              | Start the cooperative scheduler dispatch loop. Does not return. |
-| **os_core** | `os_yield()`                              | Voluntarily release CPU control. In the current implementation, task switching primarily occurs through scheduler iteration and sleep operations. |
-| **os_core** | `os_sleep_ms(ms)`                         | Put the current task into the `SLEEPING` state for at least `ms` milliseconds. |
-| **os_core** | `os_scheduler_tick()`                     | Invoked from the SysTick ISR to wake tasks whose sleep timeout has expired. |
-| **os_core** | `os_current_task()`                       | Return a pointer to the currently executing task's TCB. |
-| **os_core** | `os_get_task_table()`                     | Return a pointer to the task table for diagnostics and monitoring. |
-| **os_core** | `os_get_task_count()`                     | Return the number of registered tasks. |
-| **os_core** | `os_reset_stats()`                        | Reset task execution statistics (`run_count`) used by the UART demo commands. |
-| **os_tick** | `os_tickInit()`                           | Configure SysTick to generate a 1 ms OS timebase. |
-| **os_tick** | `os_now_ms()`                             | Return the current monotonic uptime in milliseconds. |
-| **os_sem**  | `os_sem_init()`                           | Initialize a binary semaphore. |
-| **os_sem**  | `os_sem_wait()`                           | Wait on a semaphore. Blocks the task if the semaphore is unavailable. |
-| **os_sem**  | `os_sem_signal()`                         | Signal a semaphore and wake a waiting task if present. |
-| **os_mq**   | `os_mq_init()`                            | Initialize a message queue. |
-| **os_mq**   | `os_mq_send()`                            | Enqueue a message into the queue. |
-| **os_mq**   | `os_mq_recv()`                            | Receive a message from the queue. Blocks the task if the queue is empty. |
+| Function                          | Description                                           | 
+|-----------------------------------|-------------------------------------------------------|
+| `os_init()`                       | Initialise the scheduler and task table               |
+| `os_task_create(name, fn, state)` | Register a task, returns its TCB pointer              |
+| `os_start()`                      | Start the scheduler — does not return                 |
+| `os_sleep_ms(ms)`                 | Sleep the current task for at least `ms` milliseconds |
+| `os_yield()`                      | Voluntarily yield CPU back to the scheduler           |
+| `os_now_ms()`                     | Return current uptime in milliseconds                 |
+| `os_sem_init(sem, value)`         | Initialise a binary semaphore                         |
+| `os_sem_wait(sem)`                | Wait on a semaphore, blocks if unavailable            |
+| `os_sem_signal(sem)`              | Signal a semaphore, wakes a waiting task              |
+| `os_mq_init(mq)`                  | Initialise a message queue                            |
+| `os_mq_send(mq, msg)`             | Enqueue a message, returns error if full              |
+| `os_mq_recv(mq, msg)`             | Receive a message, blocks if empty                    |
 
 > DEMO APPLICATION
 
